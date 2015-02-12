@@ -1,0 +1,42 @@
+{
+  "name": "angular-arcgis",
+  "version": "1.0.0",
+  "description": "0.0.1",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brunoksato/angular-arcgis.git"
+  },
+  "keywords": [
+    "angularjs",
+    "arcgis",
+    "esri",
+    "maps"
+  ],
+  "author": "@brunoksato, @rodrigoperetta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brunoksato/angular-arcgis/issues"
+  },
+  "homepage": "https://github.com/brunoksato/angular-arcgis",
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "browser-sync": "^2.0.1",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.1.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.4.3",
+    "gulp-jshint": "^1.9.2",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-minify-css": "^0.4.5",
+    "gulp-ng-annotate": "^0.5.2",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.3",
+    "karma": "^0.12.31"
+  }
+}

@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'angular-arcgis' ]; then cd .. && eval "mv $currentfolder angular-arcgis" && cd angular-arcgis; fi
