@@ -13,8 +13,7 @@ var $ = require('gulp-load-plugins')({
 
 gulp.task('serve', ['browser-sync'], function(){
 
-    gulp.watch("example/*.js", ['js', browserSync.reload]);
-    gulp.watch("example/*.html", ['html', browserSync.reload]);
+    //gulp.watch("example/*.js", ['js', browserSync.reload]);
 
 });
 
@@ -28,10 +27,9 @@ gulp.task('browser-sync', function() {
 });
 
 
-gulp.task('build', ['scripts','styles','lint','clean'], function() {
+gulp.task('build', ['scripts','styles','lint','clean', 'serve'], function() {
 
-  gulp.src("./src/notify.ext")
-    .pipe($.notify("Build Complete!"));
+  //$.notify("Build Complete!");
 
 });
 

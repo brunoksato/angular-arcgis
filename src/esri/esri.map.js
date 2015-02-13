@@ -14,7 +14,7 @@ var mapObject = function(){
 
     this.map = undefined;
 
-}
+};
 
 function MapService(){
 
