@@ -7,7 +7,9 @@
 </head>
 <body ng-app="app" ng-controller="MapCtrl">
 
-    <!-- <map zoom="8" basemap="topo" id="mapID"></map> -->
+	<h1>{{title}}</h1>
+	<br />
+    <map zoom="8" basemap="topo" id="mapID"></map>
 
 
     <script src="http://js.arcgis.com/3.12/"></script>
@@ -18,17 +20,9 @@
     angular.module('app', ['esri.map'])
         .controller('MapCtrl', MapCtrl);
 
-    function MapCtrl(){
-
-        require(["esri/map", "dojo/domReady!"], function(Map) {
-          var map = new Map("map", {
-            center: [-118, 34.5],
-            zoom: 8,
-            basemap: "topo"
-          });
-        });
-
-    }
+    function MapCtrl( $scope ){
+		$scope.title = 'Angular ArcGis API'
+	}
 
     </script>
 </body>
