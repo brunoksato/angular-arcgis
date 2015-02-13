@@ -9,19 +9,31 @@
 
 	<h1>{{title}}</h1>
 	<br />
-    <map zoom="8" basemap="topo" id="mapID"></map>
+    <!--<map zoom="8" basemap="topo" id="mapID"></map>-->
 
 
     <script src="http://js.arcgis.com/3.12/"></script>
     <script src="angular.min.js"></script>
     <script src="angular-arcgis.js"></script>
+	<script src="lodash.min.js"></script>
     <script>
 
-    angular.module('app', ['esri.map'])
+    angular.module('app', ['esri'])
         .controller('MapCtrl', MapCtrl);
 
-    function MapCtrl( $scope ){
-		$scope.title = 'Angular ArcGis API'
+    function MapCtrl( $scope, $timeout, $esriService ){
+
+		$timeout( function(  ){
+			$scope.title = 'Angular ArcGis API';
+			var $service = $esriService.get();
+
+			var map = new $service.Map("map", {
+				center: [-118, 34.5],
+				zoom: 8,
+				basemap: "topo"
+			});
+		})
+
 	}
 
     </script>

@@ -6,7 +6,7 @@
 * Description
 */
 angular.module('esri.map', [])
-    .directive('Map', Map)
+    /*.directive('Map', Map)
     .factory('MapService', MapService)
     .controller('MapCtrl', MapCtrl);
 
@@ -29,10 +29,10 @@ require(['esri/map'], function (Map) {
 
 });
 
-/**
+*//**
  * [Map description]
  * @ngInject
- */
+ *//*
 function Map(){
     return{
 
@@ -106,4 +106,4 @@ function MapCtrl($rootScope, $scope, $attrs, MapService){
 
     }
 
-}
+}*/

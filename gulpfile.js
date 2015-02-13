@@ -13,7 +13,8 @@ var $ = require('gulp-load-plugins')({
 
 gulp.task('serve', ['browser-sync'], function(){
 
-    //gulp.watch("example/*.js", ['js', browserSync.reload]);
+    gulp.watch("example/esri.map.html", ['build', browserSync.reload]);
+	  gulp.watch("src/esri.service.js", ['build', browserSync.reload]);
 
 });
 
@@ -21,8 +22,9 @@ gulp.task('serve', ['browser-sync'], function(){
 gulp.task('browser-sync', function() {
     browserSync({
         server: {
-            baseDir: "./example"
-        }
+            baseDir: "./example/"
+        },
+				browser: "Chrome"
     });
 });
 
@@ -68,7 +70,7 @@ gulp.task('scripts', function() {
         .pipe($.rename('angular-arcgis.min.js'))
         .pipe(gulp.dest('dist/'));
 
-    gulp.src('bower_components/angular/angular.min.js')
+    gulp.src(['bower_components/angular/angular.min.js', 'bower_components/lodash/lodash.min.js' ])
         .pipe(gulp.dest('example/'));
 
 });

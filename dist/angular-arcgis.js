@@ -1,3 +1,80 @@
+angular.module('esri',[
+	'esri.service',
+	'esri.map'
+])
+.run(LoadEsri);
+
+/**
+ * @njInject
+ * @constructor
+ */
+function LoadEsri( $q, $rootScope, $esriService ){
+
+	var deferred = $q.defer(),
+			deps = {
+
+				baseMaps: 'esri/basemaps',
+				map: 'esri/map'
+
+			};
+
+	$esriService.loadDependencies( deps, function(  ){
+
+		deferred.resolve();
+		if (!$rootScope.$$phase) {
+			$rootScope.$apply();
+		}
+
+	});
+
+	return deferred.promise;
+
+}
+LoadEsri.$inject = ["$q", "$rootScope", "$esriService"];
+'use strict';
+
+angular.module('esri.service', [])
+	.service('$esriService', $esriService);
+
+/**
+ * @ngInject
+ * @returns {{loadDependencies: Function, get: Function}}
+ * @constructor
+ */
+function $esriService(){
+
+	var service = {};
+
+	function _loadDependecies( deps, next ){
+
+		var reqArr = _.values(deps),
+				keysArr = _.keys(deps);
+
+		require(reqArr, function () {
+			var args = arguments;
+
+			_.each(keysArr, function (name, idx) {
+				service[name] = args[idx];
+			});
+
+			next();
+		});
+
+	}
+
+	return {
+		loadDependencies: function ( deps, next ) {
+			_loadDependecies( deps, next );
+		},
+
+		get: function () {
+			return service;
+		}
+
+	};
+
+}
+
 'use strict';
 
 /**
@@ -6,7 +83,7 @@
 * Description
 */
 angular.module('esri.map', [])
-    .directive('Map', Map)
+    /*.directive('Map', Map)
     .factory('MapService', MapService)
     .controller('MapCtrl', MapCtrl);
 
@@ -14,7 +91,7 @@ var mapObject = function(){
 
     this.map = undefined;
 
-}
+};
 
 function MapService(){
 
@@ -29,10 +106,10 @@ require(['esri/map'], function (Map) {
 
 });
 
-/**
+*//**
  * [Map description]
  * @ngInject
- */
+ *//*
 function Map(){
     return{
 
@@ -106,5 +183,4 @@ function MapCtrl($rootScope, $scope, $attrs, MapService){
 
     }
 
-}
-MapCtrl.$inject = ["$rootScope", "$scope", "$attrs", "MapService"];
+}*/
