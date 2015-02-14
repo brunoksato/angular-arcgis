@@ -19,18 +19,31 @@
     <script>
 
     angular.module('app', ['esri'])
+		.config(MapConfig)
         .controller('MapCtrl', MapCtrl);
+
+	function MapConfig( $esriProvider ){
+
+		$esriProvider.dependencies.push({
+			map: 'esri/map'
+		});
+
+	}
 
     function MapCtrl( $scope, $esriService ){
 
 		$scope.title = 'Angular ArcGis API';
-		var $service = $esriService.get();
+		$esriService.get().then( function( service ){
 
-		var map = new $service.Map ( "map", {
-			center  : [ -118, 34.5 ],
-			zoom    : 8,
-			basemap : "topo"
-		} );
+			console.log(service);
+
+		});
+
+//		var map = new $service.Map ( "map", {
+//			center  : [ -118, 34.5 ],
+//			zoom    : 8,
+//			basemap : "topo"
+//		} );
 
 
 	}

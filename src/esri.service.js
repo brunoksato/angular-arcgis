@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('esri.service', ['esri.core'])
+angular.module('esri.service', [])
 	.service('$esriService', $esriService);
 
 /**
@@ -8,23 +8,27 @@ angular.module('esri.service', ['esri.core'])
  * @returns {{loadDependencies: Function, get: Function}}
  * @constructor
  */
-function $esriService( $q, $rootScope, $esriCore ){
+function $esriService( $q, $rootScope ){
 
 	var service = {};
 
 	function _loadDependecies( deps, next ){
 
-		var reqArr = $esriCore.values(deps),
-				keysArr = $esriCore.keys(deps);
+		var reqArr = _.values(deps),
+				keysArr = _.keys(deps);
 
 		require(reqArr, function () {
+
 			var args = arguments;
 
-			_.each(keysArr, function (name, idx) {
+			angular.forEach(keysArr, function( name, idx ){
+
 				service[name] = args[idx];
+
 			});
 
 			next();
+
 		});
 
 	}
@@ -34,8 +38,7 @@ function $esriService( $q, $rootScope, $esriCore ){
 		var deferred = $q.defer(),
 				deps = {
 
-					BASE_MAPS : 'esri/basemaps',
-					MAP: 'esri/map'
+					Map: 'esri/map'
 
 				};
 
@@ -52,10 +55,24 @@ function $esriService( $q, $rootScope, $esriCore ){
 
 	}
 
-	return {
+	service.get = _getDependecies;
 
-		getDependencies: _getDependecies
+	return service;
 
-	}
+}
+
+/**
+ * @njInject
+ * @param deps
+ */
+function $esriProvider( deps ){
+
+	this.dependencies = [];
+
+	angular.forEach( deps, function( name, idx ){
+
+
+
+	});
 
 }
