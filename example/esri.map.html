@@ -28,12 +28,13 @@
     function MapCtrl( $scope, $esriService ){
 
 		$scope.title = 'Angular ArcGis API';
+
 		$esriService.get().then( function( service ){
 
-			var map = new service.map('map', {
-				center: [-118, 34.5],
-				zoom: 8,
-				basemap: "topo"
+			var map = new service.map ( 'map', {
+				center  : [ -118, 34.5 ],
+				zoom    : 8,
+				basemap : "topo"
 			});
 
 		});
