@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('esri.service', [])
+angular.module('esri.service', ['esri.core'])
 	.service('$esriService', $esriService);
 
 /**
@@ -8,14 +8,14 @@ angular.module('esri.service', [])
  * @returns {{loadDependencies: Function, get: Function}}
  * @constructor
  */
-function $esriService(){
+function $esriService( $q, $rootScope, $esriCore ){
 
 	var service = {};
 
 	function _loadDependecies( deps, next ){
 
-		var reqArr = _.values(deps),
-				keysArr = _.keys(deps);
+		var reqArr = $esriCore.values(deps),
+				keysArr = $esriCore.keys(deps);
 
 		require(reqArr, function () {
 			var args = arguments;
@@ -29,15 +29,33 @@ function $esriService(){
 
 	}
 
+	function _getDependecies(  ){
+
+		var deferred = $q.defer(),
+				deps = {
+
+					BASE_MAPS : 'esri/basemaps',
+					MAP: 'esri/map'
+
+				};
+
+		_loadDependecies( deps, function(  ){
+
+			deferred.resolve();
+			if (!$rootScope.$$phase) {
+				$rootScope.$apply();
+			}
+
+		});
+
+		return deferred.promise;
+
+	}
+
 	return {
-		loadDependencies: function ( deps, next ) {
-			_loadDependecies( deps, next );
-		},
 
-		get: function () {
-			return service;
-		}
+		getDependencies: _getDependecies
 
-	};
+	}
 
 }

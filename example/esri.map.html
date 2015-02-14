@@ -21,27 +21,21 @@
     angular.module('app', ['esri'])
         .controller('MapCtrl', MapCtrl);
 
-    function MapCtrl( $scope, $interval, $esriService ){
+    function MapCtrl( $scope, $esriService ){
 
 		$scope.title = 'Angular ArcGis API';
 		var $service = $esriService.get();
 
-		$interval( function(  ){
-			if($service.Map !== undefined){
-				var map = new $service.Map ( "map", {
-					center  : [ -118, 34.5 ],
-					zoom    : 8,
-					basemap : "topo"
-				} );
+		var map = new $service.Map ( "map", {
+			center  : [ -118, 34.5 ],
+			zoom    : 8,
+			basemap : "topo"
+		} );
 
-				$interval.cancel();
-
-			}
-		},5000);
 
 	}
 
-	MapCtrl.$inject =['$scope', '$interval', '$esriService'];
+	MapCtrl.$inject =['$scope', '$esriService'];
 
     </script>
 </body>
