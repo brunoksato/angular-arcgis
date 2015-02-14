@@ -16,18 +16,12 @@
     <script>
 
     angular.module('app', ['esri'])
-		.config(MapConfig)
+//		.config(['$esriProvider', function( $esriProvider ){
+//
+//			angular.extend($esriProvider.defaults, {});
+//
+//		}])
         .controller('MapCtrl', MapCtrl);
-
-	function MapConfig( $esriProvider ){
-
-		$esriProvider.dependencies.push({
-			map: 'esri/map'
-		});
-
-	}
-
-	$esriProvider.$inject = ['$esriProvider'];
 
     function MapCtrl( $scope, $esriService ){
 

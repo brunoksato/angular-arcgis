@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('esri.service', [])
-	.service('$esriProvider', $esriProvider)
+	.provider('$esriProvider', $esriProvider)
 	.service('$esriService', $esriService);
 
 /**
@@ -9,12 +9,13 @@ angular.module('esri.service', [])
  * @returns {{loadDependencies: Function, get: Function}}
  * @constructor
  */
-function $esriService( $q, $rootScope, $esriProvider ){
+function $esriService( $q, $rootScope ){
 
-	var service = {};
-	var deps = $esriProvider.dependencies;
+	var service = {},
+			factory = {};
+	//var deps = $esriProvider.dependencies;
 
-	function _loadDependecies( next ){
+	function _loadDependecies( deps, next ){
 
 		var reqArr = _.values(deps),
 				keysArr = _.keys(deps);
@@ -23,7 +24,7 @@ function $esriService( $q, $rootScope, $esriProvider ){
 
 			var args = arguments;
 
-			angular.forEach(keysArr, function( name, idx ){
+			_.each(keysArr, function( name, idx ){
 
 				service[name] = args[idx];
 
@@ -38,10 +39,13 @@ function $esriService( $q, $rootScope, $esriProvider ){
 	function _getDep(  ){
 
 		var deferred = $q.defer();
+		var deps = {
+			map: 'esri/map'
+		};
 
-		_loadDependecies(function(  ){
+		_loadDependecies( deps, function(  ){
 
-			deferred.resolve();
+			deferred.resolve(service);
 			if (!$rootScope.$$phase) {
 				$rootScope.$apply();
 			}
@@ -52,9 +56,9 @@ function $esriService( $q, $rootScope, $esriProvider ){
 
 	}
 
-	service.get = _getDep;
+	factory.get = _getDep;
 
-	return service;
+	return factory;
 
 }
 
@@ -63,6 +67,22 @@ function $esriService( $q, $rootScope, $esriProvider ){
  */
 function $esriProvider(){
 
-	this.dependencies = [];
+	var defaults = this.defaults = {
+		map: 'esri/map'
+	};
+
+	this.$get = function(  ){
+
+		function ProviderFactory( config ){
+
+			var $dep = angular.extend({}, defaults, config);
+
+			return $dep;
+
+		}
+
+		return ProviderFactory;
+
+	};
 
 }
