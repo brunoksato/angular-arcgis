@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('esri.service', [])
+	.service('$esriProvider', $esriProvider)
 	.service('$esriService', $esriService);
 
 /**
@@ -8,11 +9,12 @@ angular.module('esri.service', [])
  * @returns {{loadDependencies: Function, get: Function}}
  * @constructor
  */
-function $esriService( $q, $rootScope ){
+function $esriService( $q, $rootScope, $esriProvider ){
 
 	var service = {};
+	var deps = $esriProvider.dependencies;
 
-	function _loadDependecies( deps, next ){
+	function _loadDependecies( next ){
 
 		var reqArr = _.values(deps),
 				keysArr = _.keys(deps);
@@ -33,16 +35,11 @@ function $esriService( $q, $rootScope ){
 
 	}
 
-	function _getDependecies(  ){
+	function _getDep(  ){
 
-		var deferred = $q.defer(),
-				deps = {
+		var deferred = $q.defer();
 
-					Map: 'esri/map'
-
-				};
-
-		_loadDependecies( deps, function(  ){
+		_loadDependecies(function(  ){
 
 			deferred.resolve();
 			if (!$rootScope.$$phase) {
@@ -55,24 +52,17 @@ function $esriService( $q, $rootScope ){
 
 	}
 
-	service.get = _getDependecies;
+	service.get = _getDep;
 
 	return service;
 
 }
 
 /**
- * @njInject
- * @param deps
+ * @ngInject
  */
-function $esriProvider( deps ){
+function $esriProvider(){
 
 	this.dependencies = [];
-
-	angular.forEach( deps, function( name, idx ){
-
-
-
-	});
 
 }
