@@ -8,12 +8,14 @@
 <body ng-app="app" ng-controller="MapCtrl">
 
 	<h1>{{title}}</h1>
+	<div id="map"></div>
 
     <script src="http://js.arcgis.com/3.12/"></script>
     <script src="angular.min.js"></script>
     <script src="angular-arcgis.js"></script>
 	<script src="lodash.min.js"></script>
     <script>
+
 
     angular.module('app', ['esri'])
 //		.config(['$esriProvider', function( $esriProvider ){
@@ -28,7 +30,11 @@
 		$scope.title = 'Angular ArcGis API';
 		$esriService.get().then( function( service ){
 
-			console.log(service);
+			var map = new service.map('map', {
+				center: [-118, 34.5],
+				zoom: 8,
+				basemap: "topo"
+			});
 
 		});
 
