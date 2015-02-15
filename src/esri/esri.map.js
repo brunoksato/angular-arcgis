@@ -5,7 +5,7 @@
 *
 * Description
 */
-angular.module('esri.map', [])
+angular.module('esri.map', []);
     /*.directive('Map', Map)
     .factory('MapService', MapService)
     .controller('MapCtrl', MapCtrl);

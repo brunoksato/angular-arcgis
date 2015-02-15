@@ -1,33 +1,11 @@
-angular.module('esri',[
-	'esri.service',
-	'esri.map'
-])
-.run(LoadEsri);
 
 /**
- * @njInject
- * @constructor
+ * Initial module
  */
-function LoadEsri( $q, $rootScope, $esriService ){
+angular.module('esri',[
 
-	var deferred = $q.defer(),
-			deps = {
+	'esri.core',
+	'esri.service',
+	'esri.map'
 
-				ready: 'dojo/domReady!',
-				baseMaps: 'esri/basemaps',
-				map: 'esri/map'
-
-			};
-
-	$esriService.loadDependencies( deps, function(  ){
-
-		deferred.resolve();
-		if (!$rootScope.$$phase) {
-			$rootScope.$apply();
-		}
-
-	});
-
-	return deferred.promise;
-
-}
+]);
