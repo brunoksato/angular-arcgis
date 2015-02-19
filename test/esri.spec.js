@@ -2,7 +2,7 @@ describe('Test Module Esri', function(){
 
 	beforeEach(angular.mock.module('esri'));
 
-	it('have EsriBaseMaps service', function(  ){
+	it('exists esri module', function(  ){
 
 		expect('esri').toBeDefined();
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,7 @@
 <body ng-app="app" ng-controller="MapCtrl">
 
 	<h1>{{title}}</h1>
-	<br />
-    <!--<map zoom="8" basemap="topo" id="mapID"></map>-->
-
+	<div id="map"></div>
 
     <script src="http://js.arcgis.com/3.12/"></script>
     <script src="angular.min.js"></script>
@@ -18,20 +16,28 @@
 	<script src="lodash.min.js"></script>
     <script>
 
+
     angular.module('app', ['esri'])
+//		.config(['$esriProvider', function( $esriProvider ){
+//
+//			angular.extend($esriProvider.defaults, {});
+//
+//		}])
         .controller('MapCtrl', MapCtrl);
 
     function MapCtrl( $scope, $esriService ){
 
 		$scope.title = 'Angular ArcGis API';
-		var $service = $esriService.get();
 
-		var map = new $service.Map ( "map", {
-			center  : [ -118, 34.5 ],
-			zoom    : 8,
-			basemap : "topo"
-		} );
+		$esriService.get().then( function( service ){
 
+			var map = new service.map ( 'map', {
+				center  : [ -118, 34.5 ],
+				zoom    : 8,
+				basemap : "topo"
+			});
+
+		});
 
 	}
 

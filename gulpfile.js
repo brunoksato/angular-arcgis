@@ -10,6 +10,12 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*']
 });
 
+var testFiles = [
+	'bower_components/angular/angular.js',
+	'bower_components/angular-mocks/angular-mocks.js',
+	'src/*.*',
+	'test/**/*.spec.js'
+];
 
 gulp.task('serve', ['browser-sync'], function(){
 
@@ -17,7 +23,6 @@ gulp.task('serve', ['browser-sync'], function(){
 	  gulp.watch("src/esri.service.js", ['build', browserSync.reload]);
 
 });
-
 
 gulp.task('browser-sync', function() {
     browserSync({
@@ -28,20 +33,16 @@ gulp.task('browser-sync', function() {
     });
 });
 
+gulp.task('build', ['scripts','styles','lint','clean', 'test', 'serve'], function() {
 
-gulp.task('build', ['scripts','styles','lint','clean', 'serve'], function() {
-
-  //$.notify("Build Complete!");
 
 });
-
 
 gulp.task('lint', function() {
     gulp.src('src/*.js')
         .pipe($.jshint())
         .pipe($.jshint.reporter('default'));
 });
-
 
 gulp.task('styles', function() {
     gulp.src(['src/styles/*.css'])
@@ -55,7 +56,6 @@ gulp.task('styles', function() {
         .pipe($.minifyCss())
         .pipe(gulp.dest('dist/'));
 });
-
 
 gulp.task('scripts', function() {
     gulp.src('src/**/*.js')
@@ -75,8 +75,21 @@ gulp.task('scripts', function() {
 
 });
 
-
 gulp.task('clean', function() {
     return gulp.src(['dist/*', 'example/*.js'], {read: false})
         .pipe($.clean());
+});
+
+gulp.task('test', function(  ){
+
+	return gulp.src(testFiles)
+		.pipe($.karma({
+			configFile: 'karma.conf.js',
+			action: 'run'
+		}))
+		.on('error', function(err) {
+			$.notify(err);
+			throw err;
+		});
+
 });
