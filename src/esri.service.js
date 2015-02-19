@@ -20,15 +20,26 @@ function $esriService( $q, $rootScope ){
 		var reqArr = _.values(deps),
 				keysArr = _.keys(deps);
 
-		require(reqArr, function () {
+		require(reqArr, function (xhr) {
 
-			var args = arguments;
+			xhr.get({
 
-			_.each(keysArr, function( name, idx ){
+				sync: true,
+				load: function(){
 
-				service[name] = args[idx];
+					var args = arguments;
 
-			});
+					_.each(keysArr, function( name, idx ){
+
+						service[name] = args[idx];
+
+					});
+
+				}
+
+
+			})
+
 
 			next();
 
@@ -40,6 +51,7 @@ function $esriService( $q, $rootScope ){
 
 		var deferred = $q.defer();
 		var deps = {
+			sync: "dojo/_base/xhr",
 			map: 'esri/map'
 		};
 
