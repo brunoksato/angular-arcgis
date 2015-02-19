@@ -18,11 +18,13 @@
 
 
     angular.module('app', ['esri'])
-//		.config(['$esriProvider', function( $esriProvider ){
-//
-//			angular.extend($esriProvider.defaults, {});
-//
-//		}])
+		// .config(['$esriProvider', function( $esriProvider ){
+
+		// 	angular.extend($esriProvider.defaults, {
+  //               'esri/map'
+  //           });
+
+		// }])
         .controller('MapCtrl', MapCtrl);
 
     function MapCtrl( $scope, $esriService ){

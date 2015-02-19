@@ -20,25 +20,34 @@ function $esriService( $q, $rootScope ){
 		var reqArr = _.values(deps),
 				keysArr = _.keys(deps);
 
-		require(reqArr, function (xhr) {
+		require(reqArr, function () {
 
-			xhr.get({
+			// xhr.get({
 
-				sync: true,
-				load: function(){
+			// 	sync: true,
+			// 	load: function(){
 
-					var args = arguments;
+			// 		var args = arguments;
 
-					_.each(keysArr, function( name, idx ){
+			// 		_.each(keysArr, function( name, idx ){
 
-						service[name] = args[idx];
+			// 			service[name] = args[idx];
 
-					});
+			// 		});
 
-				}
+			// 	}
 
 
-			})
+			// })
+
+			var args = arguments;
+
+			_.each(keysArr, function( name, idx ){
+
+				service[name] = args[idx];
+
+			});
+
 
 
 			next();
@@ -51,8 +60,15 @@ function $esriService( $q, $rootScope ){
 
 		var deferred = $q.defer();
 		var deps = {
-			sync: "dojo/_base/xhr",
-			map: 'esri/map'
+			// sync: "dojo/_base/xhr",
+			map: 'esri/map',
+            FeatureLayer: 'esri/layers/FeatureLayer',
+            InfoTemplate: 'esri/InfoTemplate',
+            SimpleFillSymbol: 'esri/symbols/SimpleFillSymbol',
+            SimpleRenderer: 'esri/renderers/SimpleRenderer',
+            SimpleMarkerSymbol: 'esri/symbols/SimpleMarkerSymbol',
+            ScaleDependentRenderer: 'esri/renderers/ScaleDependentRenderer',
+            Color: 'dojo/_base/Color'
 		};
 
 		_loadDependecies( deps, function(  ){
