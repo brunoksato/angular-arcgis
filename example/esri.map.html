@@ -27,23 +27,45 @@
 		// }])
         .controller('MapCtrl', MapCtrl);
 
-    function MapCtrl( $scope, $esriService ){
+    function MapCtrl( $scope, $rootScope, $esriLoad ){
 
 		$scope.title = 'Angular ArcGis API';
 
-		$esriService.get().then( function( service ){
+        $esriLoad.promise.then(function( service ){
 
-			var map = new service.map ( 'map', {
-				center  : [ -118, 34.5 ],
-				zoom    : 8,
-				basemap : "topo"
-			});
+          var map = service.map ( 'map', {
+           center  : [ -118, 34.5 ],
+             zoom    : 8,
+             basemap : "topo"
+           });
 
-		});
+         });
+
+        // var map = $esriLoad.map ( 'map', {
+        //     center  : [ -118, 34.5 ],
+        //     zoom    : 8,
+        //     basemap : "topo"
+        // });
+
+
+  //       var promise = $esriLoad;
+  //       console.log(promise);
+  //       // promise.then(function(result){
+  //       //     console.log(result);
+  //       // });
+		// $esriService.get().then( function( service ){
+
+		// 	var map = new service.map ( 'map', {
+		// 		center  : [ -118, 34.5 ],
+		// 		zoom    : 8,
+		// 		basemap : "topo"
+		// 	});
+
+		// });
 
 	}
 
-	MapCtrl.$inject =['$scope', '$esriService'];
+	MapCtrl.$inject =['$scope', '$rootScope', '$esriLoad'];
 
     </script>
 </body>
